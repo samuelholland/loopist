@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <style type="text/css">
+            .yellow {
+                background-color: yellow;
+            }
+            .red {
+                background-color: red;
+            }
+            .green {
+                background-color: green;
+            }
+            .button-container {
+                border-width: 2px;
+                border: red;
+                border-style:solid;
+            }
+            #controls {
+                border-width: 2px;
+
+            }
+            .row > .button-container {
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <h1>Loopist</h1>
+            </div>
+            <div id="controls">
+                <div class="row">
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class ="btn btn-danger stop-button">STOP ALL FOR THE LOVE OF GOD</span>
+                    </div>
+                </div>
+            </div>
+            <div id="groups">
+                <div class="row">
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary clip-button" data-clip="Bass 1.mp3">Bass1</span>
+                        <span class="btn btn-primary clip-button" data-clip="Bass 2.mp3">Bass2</span>
+                        <span class="btn btn-primary clip-button" data-clip="Bass 3.mp3">Bass3</span>
+                    </div>
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary">Drums1</span>
+                        <span class="btn btn-primary">Drums2</span>
+                        <span class="btn btn-primary">Drums3</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary">Bass1</span>
+                        <span class="btn btn-primary">Bass2</span>
+                        <span class="btn btn-primary">Bass3</span>
+                    </div>
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary">Drums1</span>
+                        <span class="btn btn-primary">Drums2</span>
+                        <span class="btn btn-primary">Drums3</span>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary">Bass1</span>
+                        <span class="btn btn-primary">Bass2</span>
+                        <span class="btn btn-primary">Bass3</span>
+                    </div>
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary">Drums1</span>
+                        <span class="btn btn-primary">Drums2</span>
+                        <span class="btn btn-primary">Drums3</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary">Bass1</span>
+                        <span class="btn btn-primary">Bass2</span>
+                        <span class="btn btn-primary">Bass3</span>
+                    </div>
+                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
+                        <span class="btn btn-primary">Drums1</span>
+                        <span class="btn btn-primary">Drums2</span>
+                        <span class="btn btn-primary">Drums3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="loopist.js"></script>
+        <script src="lib/howler.js"></script>
+    </body>
+</html>
