@@ -3,6 +3,18 @@ $(function() {
     var baseDirectory = 'loops/space-loops-mp3/';
     var loadedGroups = { };
     
+    /**
+     *  Todo:
+     *   - template the button groups' html
+     *   - hook up volume slider
+     *   - quantize music playback
+     *   - think about design / additional features
+     *   - node server to automate group creation
+     *     - maybe introduce the jungle loops with a different loop set
+     *     - setup an openshift node server
+     *   - when ready, put on github pages
+     */
+    
     var groups = [
         {
             name: "drums",
