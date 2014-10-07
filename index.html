@@ -2,6 +2,7 @@
 <html>
     <head>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <style type="text/css">
             .yellow {
                 background-color: yellow;
@@ -12,16 +13,8 @@
             .green {
                 background-color: green;
             }
-            .button-container {
-                border-width: 2px;
-                border: red;
-                border-style:solid;
-            }
-            #controls {
-                border-width: 2px;
-
-            }
-            .row > .button-container {
+            
+            .row > .button-container, .controls {
                 margin-bottom: 20px;
             }
         </style>
@@ -31,75 +24,95 @@
             <div class="row">
                 <h1>Loopist</h1>
             </div>
-            <div id="controls">
-                <div class="row">
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class ="btn btn-danger stop-button">STOP ALL FOR THE LOVE OF GOD</span>
-                        <!-- This needs to be hooked up! -->
-                        <label class="col-md-12 col-xs-12 col-sm-12">
-                            <span class="col-md-4 col-xs-4 col-sm-4">Volume</span>
-                            <span class="col-md-8 col-xs-8 col-sm-8"><input class="volume-control" type="range" min="0" max="1" step="0.001" /></span>
-                        </label>
-                    </div>
-                </div>
+            <div class="row controls text-center">
+                <span class ="btn btn-danger stop-button">STOP ALL FOR THE LOVE OF GOD</span>
+                <!-- This needs to be hooked up! -->
+                <label class="col-md-12 col-xs-12 col-sm-12">
+                    <span class="col-lg-4 col-md-4 col-xs-12 col-sm-12">Volume</span>
+                    <span class="col-lg-8 col-md-8 col-xs-12 col-sm-12"><input class="volume-control" type="range" min="0" max="1" step="0.001" /></span>
+                </label>
             </div>
-            <div id="groups">
-                <div class="row">
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary clip-button" data-clip="Bass 1.mp3">Bass1</span>
-                        <span class="btn btn-primary clip-button" data-clip="Bass 2.mp3">Bass2</span>
-                        <span class="btn btn-primary clip-button" data-clip="Bass 3.mp3">Bass3</span>
-                    </div>
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary">Drums1</span>
-                        <span class="btn btn-primary">Drums2</span>
-                        <span class="btn btn-primary">Drums3</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary">Bass1</span>
-                        <span class="btn btn-primary">Bass2</span>
-                        <span class="btn btn-primary">Bass3</span>
-                    </div>
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary">Drums1</span>
-                        <span class="btn btn-primary">Drums2</span>
-                        <span class="btn btn-primary">Drums3</span>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary">Bass1</span>
-                        <span class="btn btn-primary">Bass2</span>
-                        <span class="btn btn-primary">Bass3</span>
-                    </div>
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary">Drums1</span>
-                        <span class="btn btn-primary">Drums2</span>
-                        <span class="btn btn-primary">Drums3</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary">Bass1</span>
-                        <span class="btn btn-primary">Bass2</span>
-                        <span class="btn btn-primary">Bass3</span>
-                    </div>
-                    <div class="button-container col-md-6 col-xs-6 col-sm-6">
-                        <span class="btn btn-primary">Drums1</span>
-                        <span class="btn btn-primary">Drums2</span>
-                        <span class="btn btn-primary">Drums3</span>
-                    </div>
-                </div>
+            <div class="row" id="button-scratchpad">
+            
             </div>
         </div>
         
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="loopist.js"></script>
         <script src="lib/howler.js"></script>
+        <script src="lib/listmap.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+        
+        <script type="text/javascript">
+            $(function() { 
+                var source   = $("#button-groups-template").html();
+                var template = Handlebars.compile(source);
+                Handlebars.registerPartial("button-container", $("#button-container-template").html()); 
+                var context = {
+                    groups: [{
+                        name: "drums",
+                        loops: ['Drums 1|Drumset 1.mp3', 'Drums 2|Drumset 2.mp3', 'Drums 3|Drumset 2.mp3']
+                    },
+                    {
+                        name: "bass",
+                        loops: ['Bass 1.mp3', 'Bass 2.mp3', 'Bass 3.mp3']
+                    },
+                    {
+                        name: "fm percussion",
+                        loops: ['Perc 1|FM Percussion 1.mp3', 'Perc 2|FM Percussion 2.mp3', 'Perc 2|FM Percussion 3.mp3']
+                    },
+                    {
+                        name: "jazzy",
+                        loops: ['Jazzy 1|Jazzy Chords 1.mp3', 'Jazzy 2|Jazzy Chords 2.mp3', 'Jazzy 3|Jazzy Chords 3.mp3']
+                    }]
+                };
+                
+                function contains(haystack, needle) {
+                    if (!haystack || !needle) {
+                        return false;
+                    }
+                    
+                    return haystack.indexOf(needle) > -1;
+                }
+                
+                function before(string, delimiter) {
+                    return string.substring(0, string.indexOf(delimiter));
+                }
+                
+                function after(string, delimiter) {
+                    return string.substring(string.indexOf(delimiter) + 1);
+                }
+                
+                context.groups.forEach(function(group) {
+                    group.loops = group.loops.map(function(loop) {
+                        return { 
+                            fileName: contains(loop, '|') ? after(loop, '|') : loop, 
+                            loopName: contains(loop, '|') ? before(loop, '|') : loop.replace('.mp3', '')
+                        }; 
+                    });
+                });
+                var resultingHtml = template(context);
+                $("#button-scratchpad").html(resultingHtml);
+            });
+        </script>
+        
+        <script id="button-groups-template" type="text/x-handlebars-template">
+            {{#each groups}}
+                {{> button-container}}
+            {{/each}}
+        </script>
+        
+        <script id="button-container-template" type="text/x-handlebars-template">
+            <div class="button-container col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                {{#each this.loops}}
+                    <span class="btn btn-primary clip-button" data-clip="{{this.fileName}}" data-group="{{../name}}">{{this.loopName}}</span>
+                {{/each}}
+                    <span class="btn btn-danger stop-group-button" data-group="{{this.name}}">STOP</span>
+            </div>
+        </script>
+        
+        <script src="loopist.js"></script>
     </body>
 </html>
