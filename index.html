@@ -42,61 +42,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="lib/howler.js"></script>
         <script src="lib/listmap.js"></script>
-        
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
-        
-        <script type="text/javascript">
-            $(function() { 
-                var source   = $("#button-groups-template").html();
-                var template = Handlebars.compile(source);
-                Handlebars.registerPartial("button-container", $("#button-container-template").html()); 
-                var context = {
-                    groups: [{
-                        name: "drums",
-                        loops: ['Drums 1|Drumset 1.mp3', 'Drums 2|Drumset 2.mp3', 'Drums 3|Drumset 2.mp3']
-                    },
-                    {
-                        name: "bass",
-                        loops: ['Bass 1.mp3', 'Bass 2.mp3', 'Bass 3.mp3']
-                    },
-                    {
-                        name: "fm percussion",
-                        loops: ['Perc 1|FM Percussion 1.mp3', 'Perc 2|FM Percussion 2.mp3', 'Perc 2|FM Percussion 3.mp3']
-                    },
-                    {
-                        name: "jazzy",
-                        loops: ['Jazzy 1|Jazzy Chords 1.mp3', 'Jazzy 2|Jazzy Chords 2.mp3', 'Jazzy 3|Jazzy Chords 3.mp3']
-                    }]
-                };
-                
-                function contains(haystack, needle) {
-                    if (!haystack || !needle) {
-                        return false;
-                    }
-                    
-                    return haystack.indexOf(needle) > -1;
-                }
-                
-                function before(string, delimiter) {
-                    return string.substring(0, string.indexOf(delimiter));
-                }
-                
-                function after(string, delimiter) {
-                    return string.substring(string.indexOf(delimiter) + 1);
-                }
-                
-                context.groups.forEach(function(group) {
-                    group.loops = group.loops.map(function(loop) {
-                        return { 
-                            fileName: contains(loop, '|') ? after(loop, '|') : loop, 
-                            loopName: contains(loop, '|') ? before(loop, '|') : loop.replace('.mp3', '')
-                        }; 
-                    });
-                });
-                var resultingHtml = template(context);
-                $("#button-scratchpad").html(resultingHtml);
-            });
-        </script>
         
         <script id="button-groups-template" type="text/x-handlebars-template">
             {{#each groups}}
